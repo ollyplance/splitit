@@ -1,7 +1,6 @@
 import {Page, Table, Spacer, Input, Button, useInput} from '@geist-ui/react';
 import { TableColumnRender } from '@geist-ui/react/esm/table';
 import React from 'react';
-import ReactDOM from "react-dom";
 
 function ClaimComponent() {
     type Item = {
