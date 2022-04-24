@@ -1,4 +1,4 @@
-import {Button, Page, Spacer} from '@geist-ui/react';
+import {Button, Spacer} from '@geist-ui/react';
 import "./home.css"
 import vectorImage from '../../assets/images/splitit.png';
 import React from 'react';
