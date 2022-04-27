@@ -11,6 +11,23 @@ import * as firebaseui from 'firebaseui';
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
+
+import {
+  getAuth,
+  EmailAuthProvider,
+  signOut,
+  onAuthStateChanged
+} from 'firebase/auth';
+
+import {
+  getFirestore,
+  addDoc,
+  collection
+} from 'firebase/firestore';
+
+import { initializeApp } from "firebase/app";
+import { getFirestore } from "firebase/firestore";
+
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -66,9 +83,44 @@ async function main() {
         return false;
       },
     },
+    // Listen to the form submission
+  form.addEventListener('submit', async e => {
+    // Prevent the default form redirect
+    e.preventDefault();
+    // Write a new message to the database collection "guestbook"
+    addDoc(collection(db, 'guestbook'), {
+      text: input.value,
+      timestamp: Date.now(),
+      name: auth.currentUser.displayName,
+      userId: auth.currentUser.uid
+    });
+    // clear message input field
+    input.value = '';
+    // Return false to avoid redirect
+    return false;
+  });
+
+
   };
 
   // const ui = new firebaseui.auth.AuthUI(auth);
 }
+
+
+
 main();
 
+//DATABASE
+
+try {
+  const docRef = await addDoc(collection(db, "users"), {
+    first: "Alan",
+    middle: "Mathison",
+    last: "Turing",
+    born: 1912
+  });
+
+  console.log("Document written with ID: ", docRef.id);
+} catch (e) {
+  console.error("Error adding document: ", e);
+}
