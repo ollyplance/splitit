@@ -2,13 +2,19 @@ import {Button, Divider, Input, Page, Spacer, Table, Textarea} from '@geist-ui/r
 import "./create.css"
 import { PlusCircle } from '@geist-ui/icons'
 import React from 'react';
+import { collection, addDoc } from "firebase/firestore";
+import {db} from '../../firebase.js'
+import {useNavigate} from 'react-router-dom';
 
 function CreateComponent() {
+  const navigate = useNavigate();
   const dataSource = [
-    { name: 'Margarita Pizza', price: '11', quantity: '1', edit: '' },
+    { name: 'Margarita Pizza', price: '11', quantity: '1', claimed: '' },
   ]
   const [data, setData] = React.useState(dataSource)
 
+  const [splitName, setSplitName] = React.useState('')
+  const [comments, setComments] = React.useState('')
   const [name, setName] = React.useState('')
   const [price, setPrice] = React.useState('')
   const [quantity, setQuantity] = React.useState('')
@@ -23,10 +29,17 @@ function CreateComponent() {
   }
 
   const addItem = () => {
-    const newItem = {'name': name, 'price': price, 'quantity': quantity, 'edit': ''};
+    const newItem = {'name': name, 'price': price, 'quantity': quantity, 'claimed': ''};
     const newData = [...data];
     newData.push(newItem);
     setData(newData);
+  }
+
+  const createSplitIt = async () => {
+    const finalData = {'name': splitName, 'comments': comments, 'items': data}
+    
+    const docRef = await addDoc(collection(db, "split"), finalData);
+    navigate({pathname: '/claim/'+docRef.id});
   }
 
   return (
@@ -37,10 +50,12 @@ function CreateComponent() {
           <h3>Add a name, scan your receipt, edit, and send to your friends! It is that SIMPLE.</h3>
           <Spacer h='1' />
           <h3>Event name:</h3>
-          <Input scale={4/3} placeholder="Ski Trip" />
+          <Input initialValue={splitName} onChange={(e) => setSplitName(e.target.value)}
+            scale={4/3} placeholder="Ski Trip" />
           <Spacer h='1' />
           <h3>Comments:</h3>
-          <Textarea scale={4/3} placeholder="Best trip ever!" />
+          <Textarea initialValue={comments} onChange={(e) => setComments(e.target.value)}
+            scale={4/3} placeholder="Best trip ever!" />
           <Spacer h='1' />
           <h3>Upload Receipt:</h3>
           <Input scale={4/3} placeholder="Ski Trip" />
@@ -61,12 +76,12 @@ function CreateComponent() {
               <Table.Column prop="name" label="name" />
               <Table.Column prop="price" label="price" />
               <Table.Column prop="quantity" label="quantity" />
-              <Table.Column prop="edit" label="edit" width={150} render={renderAction} />
+              <Table.Column prop="claimed" label="edit" width={150} render={renderAction} />
             </Table>
           </div>
           <Spacer h='3' />
           <Divider />
-          <Button auto scale={2}>SplitIt</Button>
+          <Button onClick={createSplitIt} auto scale={2}>SplitIt</Button>
         </Page.Content>
       </Page>
     </div>
