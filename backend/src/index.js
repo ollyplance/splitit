@@ -8,7 +8,28 @@ import {} from 'firebase/auth';
 import {} from 'firebase/firestore';
 
 import * as firebaseui from 'firebaseui';
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
 
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyBrwDvGtp_yHXy28JfhuvXdvXdCYvw8VPk",
+  authDomain: "splitit-9bf30.firebaseapp.com",
+  databaseURL: "https://splitit-9bf30-default-rtdb.firebaseio.com",
+  projectId: "splitit-9bf30",
+  storageBucket: "splitit-9bf30.appspot.com",
+  messagingSenderId: "666696492061",
+  appId: "1:666696492061:web:66aeb86f2cfe50833912f4",
+  measurementId: "G-0G5TCLKYNS"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
 // Document elements
 const startRsvpButton = document.getElementById('startRsvp');
 const guestbookContainer = document.getElementById('guestbook-container');
@@ -50,3 +71,4 @@ async function main() {
   // const ui = new firebaseui.auth.AuthUI(auth);
 }
 main();
+
