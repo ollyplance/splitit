@@ -1,8 +1,11 @@
 import {Page, Table, Spacer, Input, Button, useInput} from '@geist-ui/react';
 import { TableColumnRender } from '@geist-ui/react/esm/table';
+import { useParams } from 'react-router-dom';
 import React from 'react';
 
 function ClaimComponent() {
+    const { id } = useParams();
+    console.log(id);
     type Item = {
         name: string
         price: number

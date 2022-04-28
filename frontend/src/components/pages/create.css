@@ -1,3 +1,11 @@
 .nav-offset {
     margin-top: 50px;
 }
+
+.receipt {
+    width: 50%;
+}
+
+.itemReceipt {
+    margin-right: 15px;
+}

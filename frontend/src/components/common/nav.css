@@ -13,3 +13,9 @@
 .link {
   margin: 0 15px;
 }
+
+.logo-img {
+  max-height: 40px;
+  margin-right: 20px;
+  cursor: pointer;
+}

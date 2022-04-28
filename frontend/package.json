@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@geist-ui/core": "^2.3.8",
+    "@geist-ui/icons": "^1.0.1",
     "@geist-ui/react": "^2.2.5",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^12.1.5",
