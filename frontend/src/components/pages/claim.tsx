@@ -31,6 +31,7 @@ function ClaimComponent() {
 
     const [splitInfo, setSplitInfo] = React.useState(splitInformation)
     const [data, setData] = React.useState(dataSource)
+
     const [myItems, setMyItems] = React.useState(myClaimedItems)
     const { state, bindings } = useInput("")
 
@@ -68,7 +69,7 @@ function ClaimComponent() {
         newData.push(myItem);
         setMyItems(newData);
     }
-
+            
     const renderAction: TableColumnRender<Item> = (value, rowData, rowIndex) => {
         const updateHandler = () => {
             setData(last => {
@@ -116,6 +117,7 @@ function ClaimComponent() {
                 <h2>{splitInfo.name}</h2>
                 <Text blockquote my={0}>{splitInfo.comments}</Text>
                 <Spacer h='1' />
+
                 <p>Fill in your name and claim your items</p>
                 <h3>Name:</h3>
                 <Input {...bindings} placeholder='John Doe'/>
@@ -134,6 +136,7 @@ function ClaimComponent() {
                     <Table.Column prop="quantity" label="Quantity" />
                     <Table.Column prop="total" label="Total" />
                 </Table>
+
                 <Spacer h='1'/>
                 <Divider />
                 <h3>Total: ${getTotal()}</h3>
