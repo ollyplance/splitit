@@ -1,4 +1,4 @@
-import {Page, Table, Checkbox, Spacer, Input, Button} from '@geist-ui/react';
+import {Page, Table, Spacer, Input, Button, useInput} from '@geist-ui/react';
 import { TableColumnRender } from '@geist-ui/react/esm/table';
 import React from 'react';
 
@@ -7,21 +7,39 @@ function ClaimComponent() {
         name: string
         price: number
         claimer: string
-      }
+    }
     const dataSource = [
-        { name: 'Hamburger', price: '15', claimer: "John" },
-        { name: 'Pizza', price: '10'},
+        { name: 'Hamburger', price: 15, claimer: "John" },
+        { name: 'Pizza', price: 10},
+        { name: 'Taco', price: 12},
     ]
     const [data, setData] = React.useState(dataSource)
-    const renderAction: TableColumnRender<Item> = (value, rowData, index) => {
+    const { state, bindings } = useInput("")
+
+    const renderAction: TableColumnRender<Item> = (value, rowData, rowIndex) => {
+        const updateHandler = () => {
+            setData(last => {
+                return last.map((item, dataIndex) => {
+                    if (dataIndex !== rowIndex) return item;
+                    if (state == null || state === "") return item;
+                    else {
+                        return {
+                            name: rowData.name,
+                            price: rowData.price,
+                            claimer: state
+                        }
+                    }
+                })
+            })
+        }
         if(!rowData.claimer) {
-            return <Checkbox></Checkbox>
+            return <Button onClick={updateHandler}>Claim</Button>
         }
         else {
             return <p>{`Claimed by ${rowData.claimer}`}</p>
         }
-        
     };
+
     return (
     <div className='nav-offset'>
         <Page>
@@ -29,15 +47,14 @@ function ClaimComponent() {
                 <h1>Claim SplitIt</h1>
                 <p>Fill in your name and claim your items</p>
                 <Spacer h='1' />
-                <Input scale={4/3} placeholder="John Smith">Username</Input>
+                <Input {...bindings} />
                 <Spacer h='1' />
                 <Table data={data} onChange={value => setData(value)}>
                     <Table.Column prop="name" label="Name" />
                     <Table.Column prop="price" label="Price" />
                     <Table.Column prop="claimer" label="Claim" width={150} render={renderAction} />
                 </Table>
-                <Spacer h='1' />
-                <Button>Claim Selected Items</Button> 
+                <Spacer h='1' /> 
             </Page.Content>
         </Page>
     </div> 
