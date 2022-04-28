@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 import { getDoc, doc, updateDoc } from "firebase/firestore";
 import {db} from '../../firebase.js'
 import ReactDOM from "react-dom";
+import { setEnvironmentData } from 'worker_threads';
 
 function ClaimComponent() {
     const { id } = useParams();
@@ -20,6 +21,7 @@ function ClaimComponent() {
         quantity: number,
         total: number
     }
+    
 
     const splitInformation = {'name': 'Ski Trip', 'comments': 'I loved this trip! Now pay up! :)'}
     const dataSource = [
@@ -61,6 +63,12 @@ function ClaimComponent() {
         }
     }
 
+
+    /**
+     * Description: Adding an item based on the item that is splittable
+     * Adds a new object to a list
+     * @param item  Item Object
+     */
     const addItem = (item: Item) => {
         const myItem = {'price': item.price, 'quantity': item.quantity, 
             'total': item.price * item.quantity}
@@ -68,8 +76,15 @@ function ClaimComponent() {
         newData.push(myItem);
         setMyItems(newData);
     }
+
+
+
             
     const renderAction: TableColumnRender<Item> = (value, rowData, rowIndex) => {
+        const removeHandler = () => {
+            setData(last => last.filter((_, dataIndex) => dataIndex !== rowIndex))
+        }
+
         const updateHandler = () => {
             setData(last => {
                 return last.map((item, dataIndex) => {
@@ -88,11 +103,18 @@ function ClaimComponent() {
                 })
             });
         }
+
+
         if(!rowData.claimed) {
             return <Button onClick={updateHandler}>Claim</Button>
         }
         else {
-            return <p>{`Claimed by ${rowData.claimed}`}</p>
+            //adding a button to declaim the status
+            return <p>{`Claimed by ${rowData.claimed}`}
+                        <Button onClick={removeHandler}>DeClaim</Button>
+                    </p>
+            
+
         }
     };
 
