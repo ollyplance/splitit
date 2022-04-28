@@ -68,7 +68,7 @@ function ClaimComponent() {
         newData.push(myItem);
         setMyItems(newData);
     }
-
+            
     const renderAction: TableColumnRender<Item> = (value, rowData, rowIndex) => {
         const updateHandler = () => {
             setData(last => {
