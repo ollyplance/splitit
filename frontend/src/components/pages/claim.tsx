@@ -84,12 +84,44 @@ function ClaimComponent() {
         setMyItems(newData);
     }
 
+    const removeItem = (newItem: myItem) => {
+        const res = [];
+        console.log("myItem");
+        console.log(newItem);
+        for (var item of myItems){
+            console.log("not my item");
+            console.log(item);
+            if (item.price !== newItem.price && item.total !== newItem.total){
+                res.push(item);
+            }
+        }
+        setMyItems(res);
+    }
 
 
             
     const renderAction: TableColumnRender<Item> = (value, rowData, rowIndex) => {
         const removeHandler = () => {
-            setData(last => last.filter((_, dataIndex) => dataIndex !== rowIndex))
+            setData(last => {
+                return last.map((item, dataIndex) => {
+                    if (dataIndex !== rowIndex) return item;
+                    else {
+                        const newItem = {
+                            name: rowData.name,
+                            price: rowData.price,
+                            quantity: rowData.quantity,
+                            claimed: ""
+                        }
+                        const newMyItem = {
+                            price: newItem.price,
+                            quantity: newItem.quantity,
+                            total: newItem.price * newItem.quantity,
+                        }
+                        removeItem(newMyItem);
+                        return newItem
+                    }
+                })
+            });
         }
 
         const updateHandler = () => {
@@ -118,7 +150,7 @@ function ClaimComponent() {
         else {
             //adding a button to declaim the status
             return <p>{`Claimed by ${rowData.claimed}`}
-                        <Button onClick={removeHandler}>DeClaim</Button>
+                        <Button onClick={removeHandler}>De-Claim</Button>
                     </p>
             
 
