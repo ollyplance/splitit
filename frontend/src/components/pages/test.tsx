@@ -4,9 +4,11 @@ import "./test.css";
 function TestComponent() {
   const [ocr, setOcr] = useState("");
   const [imageData, setImageData] = useState("");
+  const [progress, setProgress] = useState(0);
   const worker = createWorker({
     logger: (m) => {
       console.log(m);
+      setProgress(Math.round(parseFloat(m.progress) * 100.0));
     },
   });
   const convertImageToText = async () => {
@@ -47,6 +49,13 @@ function TestComponent() {
           accept="image/*"
         />
       </div>
+      {progress < 100 && progress > 0 && <div>
+        <div className="progress-label">Progress ({progress}%)</div>
+        <div className="progress-bar">
+          <div className="progress" style={{width: `${progress}%`}} ></div>
+        </div>
+      </div>}
+      <p>{ocr}</p>
       <div className="display-flex">
         <img src={imageData} alt="" />
         <p>{ocr}</p>
