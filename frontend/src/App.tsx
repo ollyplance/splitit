@@ -7,7 +7,6 @@ import CreateComponent from './components/pages/create';
 import ClaimComponent from './components/pages/claim';
 import NavComponent from './components/common/nav';
 import InputClaimComponent from './components/pages/input-claim';
-import TestComponent from './components/pages/test';
 
 function App() {
   return (
@@ -18,7 +17,6 @@ function App() {
         <Route path="/create" element={<CreateComponent />} />
         <Route path="/claim" element={<InputClaimComponent />} />
         <Route path="/claim/:id" element={<ClaimComponent />} />
-        <Route path="/test" element={<TestComponent />} />
       </Routes>
     </Router>
   );
