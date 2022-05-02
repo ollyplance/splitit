@@ -12,6 +12,7 @@ function App() {
   return (
     <Router>
       <CssBaseline />
+      <NavComponent />
       <Routes>
         <Route path="/" element={<HomeComponent />} />
         <Route path="/create" element={<CreateComponent />} />

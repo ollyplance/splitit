@@ -94,7 +94,10 @@ function CreateComponent() {
     }
     var newDataSource = [];
     for (let i = 0; i < quantityArr.length; i++) {
-      const newItem = {'name': nameArr[i], 'price': priceArr[i], 'quantity': quantityArr[i], 'edit': '', 'claimed':''};
+      var price = priceArr[i];
+      var price = price.replace(/\$ /g, "");
+      console.log(price);
+      const newItem = {'name': nameArr[i], 'price': price, 'quantity': quantityArr[i], 'edit': '', 'claimed':''};
       newDataSource.push(newItem);
     }
     setData(newDataSource);
