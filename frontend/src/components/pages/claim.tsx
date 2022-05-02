@@ -7,6 +7,7 @@ import { useParams } from 'react-router-dom';
 import { getDoc, doc, updateDoc } from "firebase/firestore";
 import {db} from '../../firebase.js'
 import ReactDOM from "react-dom";
+import { setEnvironmentData } from 'worker_threads';
 
 function ClaimComponent() {
     const { id } = useParams();
@@ -22,6 +23,7 @@ function ClaimComponent() {
         quantity: number,
         total: number
     }
+    
 
     const splitInformation = {'name': 'Ski Trip', 'comments': 'I loved this trip! Now pay up! :)'}
     const dataSource = [
@@ -68,6 +70,12 @@ function ClaimComponent() {
         }
     }
 
+
+    /**
+     * Description: Adding an item based on the item that is splittable
+     * Adds a new object to a list
+     * @param item  Item Object
+     */
     const addItem = (item: Item) => {
         const myItem = {'price': item.price, 'quantity': item.quantity, 
             'total': item.price * item.quantity}
@@ -75,8 +83,47 @@ function ClaimComponent() {
         newData.push(myItem);
         setMyItems(newData);
     }
+
+    const removeItem = (newItem: myItem) => {
+        const res = [];
+        console.log("myItem");
+        console.log(newItem);
+        for (var item of myItems){
+            console.log("not my item");
+            console.log(item);
+            if (item.price !== newItem.price && item.total !== newItem.total){
+                res.push(item);
+            }
+        }
+        setMyItems(res);
+    }
+
+
             
     const renderAction: TableColumnRender<Item> = (value, rowData, rowIndex) => {
+        const removeHandler = () => {
+            setData(last => {
+                return last.map((item, dataIndex) => {
+                    if (dataIndex !== rowIndex) return item;
+                    else {
+                        const newItem = {
+                            name: rowData.name,
+                            price: rowData.price,
+                            quantity: rowData.quantity,
+                            claimed: ""
+                        }
+                        const newMyItem = {
+                            price: newItem.price,
+                            quantity: newItem.quantity,
+                            total: newItem.price * newItem.quantity,
+                        }
+                        removeItem(newMyItem);
+                        return newItem
+                    }
+                })
+            });
+        }
+
         const updateHandler = () => {
             setData(last => {
                 return last.map((item, dataIndex) => {
@@ -95,11 +142,18 @@ function ClaimComponent() {
                 })
             });
         }
+
+
         if(!rowData.claimed) {
             return <Button onClick={updateHandler}>Claim</Button>
         }
         else {
-            return <p>{`Claimed by ${rowData.claimed}`}</p>
+            //adding a button to declaim the status
+            return <p>{`Claimed by ${rowData.claimed}`}
+                        <Button onClick={removeHandler}>De-Claim</Button>
+                    </p>
+            
+
         }
     };
 
