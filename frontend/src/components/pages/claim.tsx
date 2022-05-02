@@ -108,7 +108,7 @@ function ClaimComponent() {
         for (let i = 0; i < myItems.length; i++) {
             total += myItems[i].total;
         }
-        return total;
+        return total.toFixed(2);
     }
 
     const pay = () => {

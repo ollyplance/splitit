@@ -89,15 +89,12 @@ function CreateComponent() {
           var len = tempArr[0].length;
           nameArr.push(word.substring(len, pos));
         }
-        priceArr.push(word.substring(pos));
+        priceArr.push((word.substring(pos + 1)));
       }
     }
     var newDataSource = [];
     for (let i = 0; i < quantityArr.length; i++) {
-      var price = priceArr[i];
-      var price = price.replace(/\$ /g, "");
-      console.log(price);
-      const newItem = {'name': nameArr[i], 'price': price, 'quantity': quantityArr[i], 'edit': '', 'claimed':''};
+      const newItem = {'name': nameArr[i], 'price': priceArr[i], 'quantity': quantityArr[i], 'edit': '', 'claimed':''};
       newDataSource.push(newItem);
     }
     setData(newDataSource);
