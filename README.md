@@ -20,6 +20,9 @@ Final React project that implements on ideas for receipt splitting. OCR on recei
  	* Add other items that you want to charge for.
   	* Add quanitity and edit the list to what you want! 
 
+## Video Example
+[Video on Youtube](https://youtu.be/83tsnPJbnto)
+
 ## Screenshots
 
 <div align="center">
@@ -29,8 +32,5 @@ Final React project that implements on ideas for receipt splitting. OCR on recei
 	<img src="https://github.com/ollyplance/splitit/blob/master/images/UniqueID.png?raw=true" width="700"/>
 	<img src="https://github.com/ollyplance/splitit/blob/master/images/Claim.png?raw=true" width="700"/>
 </div>
-
-## Video Example
-
 
 Created for 17356: Software Engineering for Startups
