@@ -23,11 +23,11 @@ Final React project that implements on ideas for receipt splitting. OCR on recei
 ## Screenshots
 
 <div align="center">
-	<img src="https://raw.githubusercontent.com/ollyplance/splitit/blob/master/images/OCR.png" width="200"/>
-	<img src="https://raw.githubusercontent.com/ollyplance/splitit/blob/master/images/ClaimWithName.png" width="200"/>
-	<img src="https://raw.githubusercontent.com/ollyplance/splitit/blob/master/images/FriendClaim.png" width="200"/>
-	<img src="https://raw.githubusercontent.com/ollyplance/splitit/blob/master/images/UniqueID.png" width="200"/>
-	<img src="https://raw.githubusercontent.com/ollyplance/splitit/blob/master/images/Claim.png" width="200"/>
+	<img src="https://github.com/ollyplance/splitit/blob/master/images/OCR.png?raw=true" width="200"/>
+	<img src="https://github.com/ollyplance/splitit/blob/master/images/ClaimWithName.png?raw=true" width="200"/>
+	<img src="https://github.com/ollyplance/splitit/blob/master/images/FriendClaim.png?raw=true" width="200"/>
+	<img src="https://github.com/ollyplance/splitit/blob/master/images/UniqueID.png?raw=true" width="200"/>
+	<img src="https://github.com/ollyplance/splitit/blob/master/images/Claim.png?raw=true" width="200"/>
 </div>
 
 ## Video Example
