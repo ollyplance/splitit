@@ -1,5 +1,5 @@
 # SplitIt
-Final React project that implements on ideas for receipt splitting. OCR on receipts, itemization, payment claims, no signin required, share to all of your friends!
+React project that implements on ideas for receipt splitting using OCR, itemization, payment claims, no signin required!
 
 ## Key Features
 
